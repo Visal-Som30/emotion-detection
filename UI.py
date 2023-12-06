@@ -1,12 +1,18 @@
 import streamlit as st
 from PIL import Image
 import pandas as pd
+import emoji
 
 def instuction():
     with st.sidebar:
         st.header("📑 Instruction")
         st.markdown("1. Drag and Drop your photo into the right form. 👉")
         st.markdown("2. Just Click on the DETECT button, it will tell the emotion from your photo.")
+        # Display a hint with an emoji using st.write
+        st.write("ℹ️ **Hint:** This is a simple example with Streamlit and emojis.")
+
+        # Display another hint with a different emoji using st.markdown
+        st.markdown(f"{emoji.emojize(':bulb:')} **Tip:** Customize your Streamlit app with emojis!")
 
 def main():
     st.set_page_config(
