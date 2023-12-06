@@ -1,0 +1,6 @@
+Dear teacher
+
+We want to reselect the dataset because the first dataset that we chose contains some challenges such as image low quality, and having multiple faces, so it is hard to detect faces. Also, some pictures are text and emoji, so it is also a problem. One more thing, the dataset is not enough to train or test after we do preprocessing.
+We have found the new dataset which has been made preprocessing to use for emotion detection on the face. 
+
+here link to the dataset: https://drive.google.com/drive/folders/1ALB1v_OSBYS0t6f-Gey-4uLGz-RUot2l
