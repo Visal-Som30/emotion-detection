@@ -8,7 +8,7 @@ class FaceDetection:
     def __init__(self):
         self.__dict__ = self._shared_state
         if not self._shared_state:
-            self.model = load_model('model.h5')
+            self.model = load_model('modelx.h5')
             self.image_preprocessing = ImagePreprocessing()
 
     def predict(self,image):

@@ -49,48 +49,6 @@ class ImagePreprocessing:
         augmented_img = self.datagen.flow(np.expand_dims(normalized_img, axis=0), batch_size=1)[0][0]
         label = self.preprocess_labels([emotion_label])[0]
         return augmented_img, label
-    def facial_detection(self,img_path):
-        # Load an image
-        # try catch
-        try:
-            img = cv2.imread(img_path)
-            gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-
-            # Detect faces in the image
-            faces = self.detector(gray)
-            # Iterate over detected faces
-            for face in faces:
-                # Predict facial landmarks
-                landmarks = self.predictor(gray, face)
-
-                # Extract face region using the bounding box of the detected face
-                x, y, w, h = face.left(), face.top(), face.width(), face.height()
-                face_img = gray[y:y+h, x:x+w]#img
-
-                # Draw landmarks on the face image (optional)
-                for point in landmarks.parts():
-                    cv2.circle(face_img, (point.x - x, point.y - y), 2, (0, 255, 0), -1)
-                if face_img is None:
-                    return None
-                _img = cv2.resize(face_img, (224, 224))
-                _img_ = []
-                for x in _img:
-                    arr = []
-                    for y in x:
-                        if y.max()<5:
-                            arr.append([0,0,0])
-                            # arr.append(1)
-                        else:
-                            arr.append([255,255,255])
-                            # arr.append(0)
-                    _img_.append(arr)
-                return _img_
-                # Display the face image with landmarks
-                # plt.imshow(cv2.cvtColor(face_img, cv2.COLOR_BGR2RGB))
-                # plt.axis('off')
-                # plt.show()
-        except:
-            return None
 
     def facial_detection_img(self,img):
         # Load an image
@@ -115,21 +73,19 @@ class ImagePreprocessing:
                     cv2.circle(face_img, (point.x - x, point.y - y), 2, (0, 255, 0), -1)
                 if face_img is None:
                     return None
+                # Resize the face image to 224x224
                 _img = cv2.resize(face_img, (224, 224))
-                # return _img
+
+                # select point on face
                 _img_ = []
                 for x in _img:
                     arr = []
                     for y in x:
-                        if y.max()<5:
-                            arr.append([0,0,0])
-                        else:
+                        if y>5:
                             arr.append([255,255,255])
+                        else:
+                            arr.append([0,0,0])
                     _img_.append(arr)
                 return _img_
-                # Display the face image with landmarks
-                # plt.imshow(cv2.cvtColor(face_img, cv2.COLOR_BGR2RGB))
-                # plt.axis('off')
-                # plt.show()
         except:
             return None
